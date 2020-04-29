@@ -1,0 +1,6 @@
+.vscode
+*/obj
+*/node_modules
+*/.vscode
+.vs/
+*/bin/*
