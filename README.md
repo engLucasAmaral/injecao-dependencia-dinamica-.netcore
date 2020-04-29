@@ -15,3 +15,13 @@ No exemplo, as classes de DI estão no projeto core que é referenciado no proje
 
 a) É necessário adicionar no startup do projeto principal "api", a injeção de dependência de forma dinamica.
 		Observar o metodo: AdicionaInjecaoDependencia
+
+## Testes: 
+
+Será retornado um contador e um guid, informando a instancia da classe!
+ 
+http://localhost:5000/api/requestscoped
+
+http://localhost:5000/api/transient
+
+http://localhost:5000/api/singleton
