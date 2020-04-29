@@ -1,4 +1,4 @@
-# Injeção de depêndencia de forma dinamica com .net core
+# Injeção de dependência de forma dinamica com .net core
 Uma forma simples e menos verbosa para implementar a injeção de dependencia com .net core!
 
 Para funcionar dinamicamente é necessario anotar as classes que serão usadas pelo DI no projeto com:
@@ -15,3 +15,13 @@ No exemplo, as classes de DI estão no projeto core que é referenciado no proje
 
 a) É necessário adicionar no startup do projeto principal "api", a injeção de dependência de forma dinamica.
 		Observar o metodo: AdicionaInjecaoDependencia
+
+## Testes: 
+
+Será retornado um contador e um guid, informando a instancia da classe!
+ 
+http://localhost:5000/api/requestscoped
+
+http://localhost:5000/api/transient
+
+http://localhost:5000/api/singleton
