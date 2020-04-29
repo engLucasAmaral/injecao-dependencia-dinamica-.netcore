@@ -1,7 +1,7 @@
 
 using System;
 
-namespace core.InectionDependency
+namespace core.InjectionDependency
 {
 
      [AttributeUsage(AttributeTargets.Class)]

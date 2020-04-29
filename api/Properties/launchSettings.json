@@ -17,10 +17,10 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "testeInjecao": {
+    "api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "teste",
+      "launchUrl": "api",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

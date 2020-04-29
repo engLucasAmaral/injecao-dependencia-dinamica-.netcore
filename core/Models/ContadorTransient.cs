@@ -1,5 +1,5 @@
 using System;
-using core.InectionDependency;
+using core.InjectionDependency;
 
 namespace core.Models
 {
