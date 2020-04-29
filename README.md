@@ -1,4 +1,4 @@
-# Injeção de dependência de forma dinamica com .netcore
+# Injeção de dependência de forma dinâmica com .netcore
 Uma forma simples e menos verbosa para implementar a injeção de dependência com .netcore!
 
 Para funcionar dinamicamente é necessario anotar as classes que serão usadas pelo container DI no projeto com:
