@@ -81,7 +81,12 @@ namespace api
 
             Assembly.GetExecutingAssembly().GetReferencedAssemblies().ToList().ForEach(assembly =>
             {
-                assemblies.Add(Assembly.Load(assembly));
+                var assemblyLoading = Assembly.Load(assembly);
+                try{
+                      assemblyLoading.GetTypes();
+                      assemblies.Add(assemblyLoading);
+                }catch(ReflectionTypeLoadException ex){   } 
+            
             });
             assemblies.ToList().ForEach(assembly =>
             {
