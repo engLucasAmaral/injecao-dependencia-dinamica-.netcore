@@ -10,9 +10,9 @@ Para funcionar dinamicamente é necessario anotar as classes que serão usadas p
 # [Singleton]
     As classes com essa anotação serão adicionadas ao container DI como Singleton
 
-# [RequestScoped(Interface = typeof(IContadorTransientComInterface))]
-# [Transient(Interface = typeof(IContadorTransientComInterface))]
-# [Singleton(Interface = typeof(IContadorTransientComInterface))]
+# [RequestScoped(Interface = typeof(IContadorComInterface))]
+# [Transient(Interface = typeof(IContadorComInterface))]
+# [Singleton(Interface = typeof(IContadorComInterface))]
     Injeção com Interfaces...
 
 No exemplo, as classes de DI estão no projeto core que é referenciado no projeto api (projeto principal). 
