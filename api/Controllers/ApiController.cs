@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using core.InjectionDependency;
 using core.Models;
+using api.Models;
 
 namespace api.Controllers
 {
@@ -46,7 +47,7 @@ namespace api.Controllers
         }
 
 
-         [HttpGet("transient")]
+        [HttpGet("transient")]
         public object GetTransient([FromServices] ContadorTransient _contadorTransient)
         {
             _contadorTransient.Incrementar();
@@ -58,6 +59,17 @@ namespace api.Controllers
             };           
         }
 
-     
+        [HttpGet("transientcominterface")]
+        public object GetNovoTesteTransient([FromServices] IContadorTransientComInterface _contadorTransient)
+        {
+            _contadorTransient.Incrementar();
+
+            return new
+            {
+                _valorAtual = _contadorTransient.GetValorAtual(),
+                instance = _contadorTransient.GetGuid()
+            };
+        }
+
     }
 }

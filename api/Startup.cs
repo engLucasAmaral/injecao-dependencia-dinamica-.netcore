@@ -42,7 +42,7 @@ namespace api
                         Contact = new OpenApiContact
                         {
                             Name = "Lucas Amaral",
-                            Email ="eng.lucasamaral@gmail.com",
+                            Email = "eng.lucasamaral@gmail.com",
                             Url = new Uri("https://github.com/engLucasAmaral/injecao-dependencia-dinamica-.netcore")
                         }
                     }
@@ -57,7 +57,7 @@ namespace api
                 app.UseDeveloperExceptionPage();
             }
 
-//            app.UseHttpsRedirection();
+            //            app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -74,54 +74,36 @@ namespace api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", ".Net core - Injeção de dependência dinâmica!");
             });
         }
-       private void AdicionaInjecaoDependencia(IServiceCollection services)
+        private void AdicionaInjecaoDependencia(IServiceCollection services)
         {
-            var classesDI = new List<Type>();
-            HashSet<Assembly> assemblies = AppDomain.CurrentDomain.GetAssemblies().ToHashSet();
 
-            Assembly.GetExecutingAssembly().GetReferencedAssemblies().ToList().ForEach(assembly =>
-            {
-                var assemblyLoading = Assembly.Load(assembly);
-                try{
-                      assemblyLoading.GetTypes();
-                      assemblies.Add(assemblyLoading);
-                }catch(ReflectionTypeLoadException ex){   } 
-            
-            });
-            assemblies.ToList().ForEach(assembly =>
-            {
-                classesDI.AddRange(assembly.GetTypes().Where(type =>
-               {
-                   return type.GetCustomAttributes().Where(attr =>
-                   {
-                       return (attr.GetType()) switch
-                       {
-                           var typeDI when
-                           typeDI == typeof(Transient) ||
-                           typeDI == typeof(Singleton) ||
-                           typeDI == typeof(RequestScoped) => true,
-                           _ => false
-                       };
-                   }).ToList().Count > 0;
-               }).ToList());
-            });
-            classesDI.ForEach(type =>
-            {
-                if (type.GetCustomAttributes().Any(attr => attr.GetType() == typeof(RequestScoped)))
-                {
-                    services.AddScoped(type);
-                }
-                else if (type.GetCustomAttributes().Any(attr => attr.GetType() == typeof(Transient)))
-                {
-                    services.AddTransient(type);
-                }
-                else if (type.GetCustomAttributes().Any(attr => attr.GetType() == typeof(Singleton)))
-                {
-                    services.AddSingleton(type);
-                }
-            });
+            var classesDI = AppDomain.CurrentDomain.GetAssemblies().SelectMany(t => t.GetTypes()).
+                Where(
+                    t => t.IsClass &&
+                    (t.GetCustomAttributes<LifeTimeAttribute>().Any())
+                )?.ToList();
 
+            foreach (var typeClass in classesDI)
+            {
+                var attr = typeClass.GetCustomAttribute<LifeTimeAttribute>();
+
+                Type typeInterface = typeClass;
+                if (attr.Interface != null)
+                    typeInterface = attr.Interface;
+
+                if (attr.GetType() == typeof(RequestScoped))
+                {
+                    services.AddScoped(typeInterface, typeClass);
+                }
+                else if (attr.GetType() == typeof(Transient))
+                {
+                    services.AddTransient(typeInterface, typeClass);
+                }
+                else if (attr.GetType() == typeof(Singleton))
+                {
+                    services.AddSingleton(typeInterface, typeClass);
+                }
+            }
         }
-    
     }
 }
