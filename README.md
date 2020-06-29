@@ -10,6 +10,10 @@ Para funcionar dinamicamente é necessario anotar as classes que serão usadas p
 # [Singleton]
     As classes com essa anotação serão adicionadas ao container DI como Singleton
 
+# [RequestScoped(Interface = typeof(Iterface))]
+# [Transient(Interface = typeof(Iterface))]
+# [Singleton(Interface = typeof(Iterface))]
+    Injeção com Interfaces...
 
 No exemplo, as classes de DI estão no projeto core que é referenciado no projeto api (projeto principal). 
 
@@ -25,6 +29,10 @@ http://localhost:5000/api/requestscoped
 http://localhost:5000/api/transient
 
 http://localhost:5000/api/singleton
+
+http://localhost:5000/api/transientcominterface
+
+
 
 
 # Swagger
